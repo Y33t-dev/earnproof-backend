@@ -10,6 +10,7 @@ import {
   HorizonTransport,
   retryAfterFrom,
 } from "./horizon-transport";
+import { operationIndexFromToid } from "./operation-identity";
 import { HorizonPaymentRecord, NormalizedPayment } from "./stellar.types";
 
 /**
@@ -474,6 +475,7 @@ export function normalizeRecord(record: unknown, address: string): RecordOutcome
 
   return {
     operationId: candidate.id,
+    operationIndex: operationIndexFromToid(candidate.id),
     stellarTransactionHash: candidate.transaction_hash,
     sourceAddress: candidate.from,
     destinationAddress: candidate.to as string,
